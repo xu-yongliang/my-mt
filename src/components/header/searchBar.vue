@@ -15,13 +15,13 @@
                         <dt>热门搜索</dt>
                         <dd v-for="(item, idx) in hotSearch"
                             :key="idx">
-                            <router-link :to="{name:'good', params: {name: item}}">{{item}}</router-link>
+                            <router-link :to="{name:'search', params: {s: item}}">{{item}}</router-link>
                         </dd>
                     </dl>
                     <dl class="search-sug" v-show="ifInputFocus && searchWord">
                         <dd v-for="(item, idx) in hotSearch"
                             :key="idx">
-                            <router-link :to="{name:'good', params: {name: item}}">{{item}}</router-link>
+                            <router-link :to="{name:'search', params: {s: item}}">{{item}}</router-link>
                         </dd>
                     </dl>
                 </div>
