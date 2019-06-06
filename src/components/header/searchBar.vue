@@ -15,22 +15,21 @@
                         <dt>热门搜索</dt>
                         <dd v-for="(item, idx) in hotSearch"
                             :key="idx">
-                            <router-link :to="{name:'search', params: {s: item}}">{{item}}</router-link>
+                            <router-link :to="{name: 'search', query: {s: item}}">{{item}}</router-link>
                         </dd>
                     </dl>
                     <dl class="search-sug" v-show="ifInputFocus && searchWord">
                         <dd v-for="(item, idx) in hotSearch"
                             :key="idx">
-                            <router-link :to="{name:'search', params: {s: item}}">{{item}}</router-link>
+                            <router-link :to="{name: 'search', query: {s: item}}">{{item}}</router-link>
                         </dd>
                     </dl>
                 </div>
                 <p class="suggest">
-                    <router-link to="/"> 北京欢乐谷</router-link>
-                    <router-link to="/"> 尚隐·泉都市生活馆</router-link>
-                    <router-link to="/">故宫珍宝馆</router-link>
-                    <router-link to="/">北京连升商务酒店</router-link>
-                    <router-link to="/"></router-link>
+                    <router-link :to="{name: 'search', query: {s: '北京欢乐谷'}}"> 北京欢乐谷</router-link>
+                    <router-link :to="{name: 'search', query: {s: '尚隐·泉都市生活馆'}}"> 尚隐·泉都市生活馆</router-link>
+                    <router-link :to="{name: 'search', query: {s: '故宫珍宝馆'}}">故宫珍宝馆</router-link>
+                    <router-link :to="{name: 'search', query: {s: '北京连升商务酒店'}}">北京连升商务酒店</router-link>
                 </p>
             </el-col>
         </el-row>
@@ -40,9 +39,12 @@
 <script>
     export default {
         name: "searchBar",
+        created() {
+          this.searchWord = this.$route.params['s'];
+        },
         data() {
             return {
-                searchWord: "",
+                searchWord: this.$store.state.userInfo.search,
                 hotSearch: [
                     "故宫博物院", "北京欢乐谷", "故宫珍宝馆", "尚隐·泉都市生活馆", "八达岭长城", "北京连升商务酒店"
                 ],
@@ -50,10 +52,17 @@
                 ifInputFocus: false,
             }
         },
+        computed: {
+            search() {
+                return this.$store.state.userInfo.search;
+            },
+        },
         methods: {
             changeFocus() {
-                this.ifInputFocus = !this.ifInputFocus;
-            }
+                setTimeout(() => {
+                    this.ifInputFocus = !this.ifInputFocus;
+                }, 100);
+            },
 
         }
     }
@@ -86,7 +95,7 @@
                 width: 550px;
                 height: 40px;
                 position: relative;
-                z-index: 1;
+                z-index: 5;
 
                 input {
                     height: 40px;
@@ -130,6 +139,7 @@
                     background-color: #fff;
                     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
                     width: 80%;
+                    z-index: 6;
 
                     dd {
                         padding-left: 10px;

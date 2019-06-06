@@ -5,7 +5,7 @@
             <dd v-for="(item) in categories" :key="item.type" @mouseenter="showDetail(item.items)">
                 <i :class="item.type"></i>
                 <router-link v-for="(citem, idx) in item.items" :key="citem.title"
-                             :to="{name: 'search', params: {name: citem.title}}">
+                             :to="{name: 'search', query: {name: citem.title}}">
                     <span v-if="idx!==0">/</span> {{citem.title}}
                 </router-link>
                 <span class="arrow"></span>
@@ -14,7 +14,7 @@
         <div class="detail" v-show="curDetail" @mouseenter="detailEnter" @mouseleave="detailLeave">
             <div class="category-detail" v-for="(detail, idx) in curDetail" :key="idx">
                 <h4>{{detail.title}}</h4>
-                <span v-for="category in detail.items"><router-link :to="{name: 'search', params: {name: category}}">
+                <span v-for="category in detail.items"><router-link :to="{name: 'search', query: {name: category}}">
                     {{category}}
                 </router-link></span>
             </div>

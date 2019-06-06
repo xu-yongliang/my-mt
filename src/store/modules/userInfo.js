@@ -23,6 +23,9 @@ const mutations = {
         }
         state.historyCity.unshift(city);
         state.historyCity.splice(11);
+    },
+    setSearch(state, {search}) {
+        state.search = search;
     }
 };
 

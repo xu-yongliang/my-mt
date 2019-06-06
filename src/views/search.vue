@@ -3,8 +3,8 @@
         <div class="s">
             <el-row class="nav">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
-                    <el-breadcrumb-item class="link-style" :to="{ path: '/' }">北京美团</el-breadcrumb-item>
-                    <el-breadcrumb-item class="link-style" :to="{ path: '/' }">北京搜索词</el-breadcrumb-item>
+                    <el-breadcrumb-item class="link-style" :to="{ path: '/' }">{{city}}美团</el-breadcrumb-item>
+                    <el-breadcrumb-item class="link-style" :to="{ path: '/' }">{{city}}{{search}}</el-breadcrumb-item>
                 </el-breadcrumb>
             </el-row>
             <el-row class="s-content" :gutter="10">
@@ -123,6 +123,25 @@
         computed: {
             categoryFilter() {
                 return this.$store.state.search.searchCategory.key;
+            },
+            city() {
+                return this.$store.state.userInfo.city;
+            },
+            search() {
+                return this.$store.state.userInfo.search;
+            },
+        },
+        created() {
+            this.updateSearch(this.$route);
+        },
+        beforeRouteUpdate(to, from, next) {
+            this.updateSearch(to);
+            next();
+        },
+        methods: {
+            updateSearch(route) {
+                const search = route.query['s'];
+                this.$store.commit('userInfo/setSearch', {search})
             }
         },
         watch: {

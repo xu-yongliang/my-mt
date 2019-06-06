@@ -81,7 +81,6 @@
         name: "index",
         components: {CardContainer, BigImg, RightBanner, mMenu},
         created() {
-            console.log(this.$route);
             this.updateCity(this.$route);
         },
         beforeRouteUpdate(to, from, next) {
