@@ -8,17 +8,20 @@
             </el-col>
             <el-col :span="15" class="search-content">
                 <div class="search-input">
-                    <el-input placeholder="搜索商家或地点" v-model="searchWord" @focus="changeFocus" @blur="changeFocus">
+                    <el-input placeholder="搜索商家或地点" :value="search" @focus="changeFocus"
+                              @blur="changeFocus"
+                              @input="updateSearch"
+                    >
                         <el-button class="search-btn" slot="append" type="primary" icon="el-icon-search"></el-button>
                     </el-input>
-                    <dl class="hot-search" v-show="ifInputFocus && !searchWord">
+                    <dl class="hot-search" v-show="ifInputFocus && !search">
                         <dt>热门搜索</dt>
                         <dd v-for="(item, idx) in hotSearch"
                             :key="idx">
                             <router-link :to="{name: 'search', query: {s: item}}">{{item}}</router-link>
                         </dd>
                     </dl>
-                    <dl class="search-sug" v-show="ifInputFocus && searchWord">
+                    <dl class="search-sug" v-show="ifInputFocus && search">
                         <dd v-for="(item, idx) in hotSearch"
                             :key="idx">
                             <router-link :to="{name: 'search', query: {s: item}}">{{item}}</router-link>
@@ -39,12 +42,8 @@
 <script>
     export default {
         name: "searchBar",
-        created() {
-          this.searchWord = this.$route.params['s'];
-        },
         data() {
             return {
-                searchWord: this.$store.state.userInfo.search,
                 hotSearch: [
                     "故宫博物院", "北京欢乐谷", "故宫珍宝馆", "尚隐·泉都市生活馆", "八达岭长城", "北京连升商务酒店"
                 ],
@@ -54,7 +53,7 @@
         },
         computed: {
             search() {
-                return this.$store.state.userInfo.search;
+                return this.$store.state.search.searchWord;
             },
         },
         methods: {
@@ -63,6 +62,9 @@
                     this.ifInputFocus = !this.ifInputFocus;
                 }, 100);
             },
+            updateSearch(search) {
+                this.$store.commit('search/setSearch', {search})
+            }
 
         }
     }

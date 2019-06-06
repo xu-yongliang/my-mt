@@ -32,7 +32,7 @@
                 <div class="deal-wrapper">
                     <router-link to="#" v-for="deal in showDeals" :key="deal.id">
                         <div class="deal">
-                            <h3>{{deal.title}}</h3>
+                            <h3 class="ellipsis">{{deal.title}}</h3>
                             <p>
                                 <span class="deal-price">{{deal.price}}</span><span>门市价¥{{deal.value}}</span><span>已售{{deal.sales}}</span>
                             </p>

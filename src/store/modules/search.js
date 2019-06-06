@@ -2,7 +2,8 @@ const state = {
     searchCategory: {
         key: 0,
         data: new Map()
-    }
+    },
+    searchWord: ''
 };
 
 const getters = {};
@@ -13,6 +14,9 @@ const mutations = {
     addSearch(state, {search}) {
         state.searchCategory.data.set(search.name, search);
         state.searchCategory.key++;
+    },
+    setSearch(state, {search}) {
+        state.searchWord = search;
     }
 };
 

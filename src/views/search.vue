@@ -128,7 +128,7 @@
                 return this.$store.state.userInfo.city;
             },
             search() {
-                return this.$store.state.userInfo.search;
+                return this.$store.state.search.searchWord;
             },
         },
         created() {
@@ -141,7 +141,7 @@
         methods: {
             updateSearch(route) {
                 const search = route.query['s'];
-                this.$store.commit('userInfo/setSearch', {search})
+                this.$store.commit('search/setSearch', {search})
             }
         },
         watch: {
